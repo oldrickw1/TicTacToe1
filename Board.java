@@ -35,6 +35,9 @@ public class Board {
 
     private void updatePlayerState(Cell cell, int position) {
         (cell == Cell.CROSS ? crossSet : noughtSet).add(position);
+        if (cell == Cell.NOUGHT) {
+            System.out.println(noughtSet);
+        }
     }
 
     public GameStatus checkGameStatus() {

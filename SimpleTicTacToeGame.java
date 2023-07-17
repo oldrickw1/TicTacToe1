@@ -30,10 +30,10 @@ public class SimpleTicTacToeGame implements Controller{
         try {
             if (myTurn) {
                 makePlayerMove(position, Cell.CROSS);
-                if (gameIsOver()) return;
+                if (isGameOver()) return;
 
                 makeOpponentMove();
-                gameIsOver();
+
             }
         } catch (IllegalStateException exception) {
             view.displayMessage("Illegal move");
@@ -46,11 +46,13 @@ public class SimpleTicTacToeGame implements Controller{
         myTurn = false;
     }
 
+
     private void makeOpponentMove() {
         Timer timer = new Timer(opponent.getDelayTime(), (e) -> {
             makePlayerMove(opponent.makeChoice(model.getBoard()), Cell.NOUGHT);
             view.updateBoard(model.getBoard());
             myTurn = true;
+            isGameOver();
         });
 
         timer.setRepeats(false);
@@ -59,7 +61,7 @@ public class SimpleTicTacToeGame implements Controller{
 
 
 
-    private boolean gameIsOver() {
+    private boolean isGameOver() {
         Board.GameStatus gameStatus = model.checkGameStatus();
         if (gameStatus != Board.GameStatus.RUNNING) {
             handleGameOver(gameStatus);
