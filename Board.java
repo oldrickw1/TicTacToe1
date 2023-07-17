@@ -24,19 +24,21 @@ public class Board {
         }
     }
 
+    public boolean isEmptyCell(int position) {
+        return board[position] == Cell.EMPTY;
+    }
+
     public void makeMove(Cell cell, int position) {
-        if (board[position] != Cell.EMPTY) {
-            throw new IllegalStateException("Already a mark here");
-        } else {
-            updatePlayerState(cell, position);
-            board[position] = cell;
-        }
+        updatePlayerState(cell, position);
+        board[position] = cell;
     }
 
     private void updatePlayerState(Cell cell, int position) {
-        (cell == Cell.CROSS ? crossSet : noughtSet).add(position);
-        if (cell == Cell.NOUGHT) {
-            System.out.println(noughtSet);
+        if (cell == Cell.CROSS) {
+            crossSet.add(position);
+        }
+        else if (cell == Cell.NOUGHT) {
+            noughtSet.add(position);
         }
     }
 

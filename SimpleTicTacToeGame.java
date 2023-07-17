@@ -23,20 +23,16 @@ public class SimpleTicTacToeGame implements Controller{
         myTurn = true;
         model = new Board();
         view.updateBoard(model.getBoard());
-    }
+    } 
 
     @Override
     public void handleBoardClick(int position) {
-        try {
-            if (myTurn) {
-                makePlayerMove(position, Cell.CROSS);
-                if (isGameOver()) return;
-
-                makeOpponentMove();
-
+        if (myTurn && model.isEmptyCell(position)) {
+            makePlayerMove(position, Cell.CROSS);
+            if (isGameOver()) {
+                return;
             }
-        } catch (IllegalStateException exception) {
-            view.displayMessage("Illegal move");
+            makeOpponentMove();
         }
     }
 
