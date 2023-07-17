@@ -10,7 +10,7 @@ public class SimpleTicTacToeGame implements Controller{
 
         this.model = model;
         this.view = new GUI(this);
-        this.opponent = new NaiveOpponent();
+        this.opponent = new SmarterOpponent();
         myTurn = true;
     }
 
@@ -23,7 +23,7 @@ public class SimpleTicTacToeGame implements Controller{
         myTurn = true;
         model = new Board();
         view.updateBoard(model.getBoard());
-    } 
+    }
 
     @Override
     public void handleBoardClick(int position) {
@@ -53,20 +53,19 @@ public class SimpleTicTacToeGame implements Controller{
 
         timer.setRepeats(false);
         timer.start();
-    };
-
+    }
 
 
     private boolean isGameOver() {
-        Board.GameStatus gameStatus = model.checkGameStatus();
-        if (gameStatus != Board.GameStatus.RUNNING) {
+        GameStatus gameStatus = model.checkGameStatus();
+        if (gameStatus != GameStatus.RUNNING) {
             handleGameOver(gameStatus);
             return true;
         }
         return false;
     }
 
-    private void handleGameOver(Board.GameStatus gameStatus) {
+    private void handleGameOver(GameStatus gameStatus) {
         view.displayMessage(gameStatus.getMessage());
         resetGame();
     }
