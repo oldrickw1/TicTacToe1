@@ -19,6 +19,8 @@ public class SmarterOpponent implements Opponent{
     }
 
     private MiniMaxReturnThing minimax(Cell[] board, int depth, boolean maximizingPlayer) {
+
+        // todo: fix bug. Opponent plays to tie, not to win
         var gameStatus = gameEvaluator.checkGameStatus(board);
         if (depth == 0 || (gameStatus != GameStatus.RUNNING)) {
             return new MiniMaxReturnThing(0, gameValues.get(gameStatus));
